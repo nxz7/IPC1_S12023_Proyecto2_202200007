@@ -1,20 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
+
 package proyecto2;
 
-/**
- *
- * @author natalia
- */
-public class Proyecto2 {
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-    /**
-     * @param args the command line arguments
-     */
+
+public class Proyecto2 {
+public static Lista ListaUsuarios = new Lista();
+//public static Lista ListaRecuperada = new Lista();
+
     public static void main(String[] args) {
-        // TODO code application logic here
+ 
+       Inicio inicio = new Inicio();
+       inicio.setVisible(true);
+        
+       
     }
     
 }
