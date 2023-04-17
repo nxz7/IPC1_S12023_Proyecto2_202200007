@@ -54,6 +54,8 @@ public class Lista extends EstructuraDeDatos {
         
         tam++;
     }
+    
+    
 
     @Override
     public Object peek() {
@@ -62,7 +64,16 @@ public class Lista extends EstructuraDeDatos {
 
     @Override
     public Object find(Object e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Usuario usuarioBuscado = (Usuario) e;
+    Nodo actual = primero;
+    
+    while (actual != null) {
+        if (actual.getUsuario().equals(usuarioBuscado)) {
+            return actual.getUsuario();
+        }
+        actual = actual.siguiente;
+    }
+    return null;
     }
 
     @Override

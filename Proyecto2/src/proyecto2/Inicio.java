@@ -24,6 +24,20 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
          this.ListaUsuarios = Proyecto2.ListaUsuarios;
          this.ListaRecuperada =ListaRecuperada;
+         
+         try {
+
+           ObjectInputStream recuperar = new ObjectInputStream(
+           new FileInputStream("C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\usuarios.dat")
+           );
+           Lista ListaRecuperada = (Lista) recuperar.readObject();
+           recuperar.close();
+           System.out.println("Lista recuperada");
+           ListaRecuperada.mostrar();
+       
+       }catch(Exception e){
+       System.err.println("Error"+ e.getMessage());
+       }
         
     }
 
@@ -154,62 +168,62 @@ public class Inicio extends javax.swing.JFrame {
 
     private void ingBibliotecaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingBibliotecaActionPerformed
         
-        String nombre = usuarioGui.getText();
-        
-        Usuario nuevo = new Usuario(nombre);
-        
-        ListaUsuarios.add(nuevo);
-        ListaUsuarios.mostrar();
-        
-        
-        try{
-            if(ListaRecuperada.getSize()>0){
+         String nuevo = usuarioGui.getText();
+    
+    Usuario nuevoUsuario = new Usuario(nuevo);
 
-            ListaRecuperada.add(nuevo);
-            
+    boolean existe = false;
+    try {
+        ObjectInputStream recuperar = new ObjectInputStream(
+            new FileInputStream("C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\usuarios.dat")
+        );
+        Lista listaRecuperada = (Lista) recuperar.readObject();
+        recuperar.close();
+        System.out.println("Lista recuperada");
+        listaRecuperada.mostrar();
+        System.out.println("----------------------");
+        for (int i = 0; i < listaRecuperada.getSize(); i++) {
+            String nombreUsuario = (String)listaRecuperada.get(i);
+            if (nombreUsuario.equals(nuevo)) {
+                existe = true;
+                break;
             }
+        }
+        if (!existe) {
+            listaRecuperada.add(nuevoUsuario);
+            System.out.println("Usuario agregado");
+            System.out.println("----------------------");
+            dispose();
+        Biblioteca pi = new Biblioteca();
+                     pi.recibirNombre(nuevo);
+                     pi.setVisible(true);
+        } else {
+            System.out.println("Usuario ya existe");
+            System.out.println("----------------------");
             
-        }catch(Exception e){}
+            
+            dispose();
+        Biblioteca pi = new Biblioteca();
+                     pi.recibirNombre(nuevo);
+                     pi.setVisible(true);
+        }
+        ObjectOutputStream guardar = new ObjectOutputStream(
+            new FileOutputStream("C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\usuarios.dat")
+        );
+        guardar.writeObject(listaRecuperada);
+        guardar.close();
+    } catch (Exception e) {
+        System.err.println("Error" + e.getMessage());
         
         
-        try {
-           ObjectOutputStream Ingresados = new ObjectOutputStream(
-           new FileOutputStream("C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\usuarios.dat"));
-           
-           Ingresados.writeObject(ListaUsuarios);
-           Ingresados.close();
-           
-           /*ObjectInputStream recuperar = new ObjectInputStream(
-           new FileInputStream("C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\usuarios.dat")
-           );
-           Lista ListaRecuperada = (Lista) recuperar.readObject();
-           recuperar.close();
-           System.out.println("Lista recuperada");
-           ListaRecuperada.mostrar();*/
-       
-       }catch(Exception e){
-       System.err.println("Error"+ e.getMessage());
-       }
-        dispose();
-        Biblioteca biblioteca = new Biblioteca();
-        biblioteca.setVisible(true);
+        
+    }
         
     }//GEN-LAST:event_ingBibliotecaActionPerformed
 
+    
     private void editorGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorGuiActionPerformed
-        try {
-
-           ObjectInputStream recuperar = new ObjectInputStream(
-           new FileInputStream("C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\usuarios.dat")
-           );
-           Lista ListaRecuperada = (Lista) recuperar.readObject();
-           recuperar.close();
-           System.out.println("Lista recuperada");
-           ListaRecuperada.mostrar();
-       
-       }catch(Exception e){
-       System.err.println("Error"+ e.getMessage());
-       }
+        
     }//GEN-LAST:event_editorGuiActionPerformed
 
     /**

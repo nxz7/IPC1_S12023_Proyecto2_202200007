@@ -4,19 +4,33 @@
  */
 package proyecto2;
 
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author natalia
  */
 public class Biblioteca extends javax.swing.JFrame {
-
+public ArrayList<String> Cat;
+public String nombreActual;
+public void recibirNombre(String nombreActual){
+        this.nombreActual=nombreActual;
+        System.out.println(""+nombreActual);
+    }
     /**
      * Creates new form Biblioteca
      */
     public Biblioteca() {
         initComponents();
+        DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+                model.addRow(new Object[]{categorias.Cat.get(0)});
+        System.out.println("usuario: ");
+        
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,10 +42,15 @@ public class Biblioteca extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        categoriaGui = new javax.swing.JTextField();
+        agregarGui = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(234, 234, 216));
+        jPanel1.setBackground(new java.awt.Color(214, 199, 228));
 
         jButton1.setBackground(new java.awt.Color(255, 255, 255));
         jButton1.setForeground(new java.awt.Color(0, 0, 0));
@@ -42,21 +61,70 @@ public class Biblioteca extends javax.swing.JFrame {
             }
         });
 
+        categoriaGui.setBackground(new java.awt.Color(255, 255, 255));
+        categoriaGui.setForeground(new java.awt.Color(51, 0, 153));
+
+        agregarGui.setBackground(new java.awt.Color(255, 255, 255));
+        agregarGui.setForeground(new java.awt.Color(51, 204, 0));
+        agregarGui.setText("agregar");
+        agregarGui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregarGuiActionPerformed(evt);
+            }
+        });
+
+        eliminar.setBackground(new java.awt.Color(255, 255, 255));
+        eliminar.setForeground(new java.awt.Color(153, 0, 0));
+        eliminar.setText("eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Categoria"
+            }
+        ));
+        jScrollPane1.setViewportView(tabla);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(601, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(agregarGui)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 418, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(categoriaGui, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(categoriaGui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(agregarGui)
+                    .addComponent(eliminar))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,7 +145,47 @@ public class Biblioteca extends javax.swing.JFrame {
         dispose();
         Inicio inicio = new Inicio();
        inicio.setVisible(true);
+       System.out.println("1."+categorias.Cat.get(0));
+       System.out.println("3."+categorias.Cat.get(2));
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    String nuevaCat;
+    Categorias categorias = new Categorias(nuevaCat);
+    
+
+    private void agregarGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarGuiActionPerformed
+        System.out.println("USUARIO "+nombreActual);
+        String nuevaCat = categoriaGui.getText();
+                
+                categorias.add(nuevaCat);
+                System.out.println("categoria: "+ categorias.get(0) );
+                
+                
+                DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+                model.addRow(new Object[]{nuevaCat});
+                
+                System.out.println("categoria: "+ categorias.get(2) );
+                
+                if(nuevaCat!= null){
+                categorias.Cat.add(nuevaCat);}
+    }//GEN-LAST:event_agregarGuiActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+         int Linea = tabla.getSelectedRow();
+
+    if (Linea == -1) {
+        return;
+    }
+    String selectedItem = (String) tabla.getValueAt(Linea, 0);
+    
+    // BORRARLO DE LA LISTA
+    categorias.Cat.remove(selectedItem);
+    
+    // QUITARLO DE LA TABLA
+    DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+    model.removeRow(Linea);
+
+    }//GEN-LAST:event_eliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -115,7 +223,12 @@ public class Biblioteca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregarGui;
+    private javax.swing.JTextField categoriaGui;
+    private javax.swing.JButton eliminar;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }
