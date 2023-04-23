@@ -1,15 +1,8 @@
 package proyecto2;
-/* NO CAMBIE EL CODIGO DE ESTA CLASE */
-
 import java.io.*;
 
 /**
-*	Defines general characteristics of an Image Handler object.
-* 	Image Handlers are capable of reading bytes of an file, and also generate files.
-*	Abstract class ImageHandler should be inherit by any ImageHandler used for this project.
-*
-*   @author Auxiliares
-*	@version 1.0
+
 **/
 public abstract class ImageHandler {
     
@@ -18,14 +11,20 @@ public abstract class ImageHandler {
 	*	Represents the file name of the original file being handled by this class
 	**/
 	protected String handledFileName;
+
+	/**
+	*	Represents the file path of the original file being handled by this class
+	**/
+	protected String handledFilePath;
 	
 	/**
 	*	Builds and returns an ImageHandler subclass type object which handles the file 
 	* 	represented by the given name
 	*	@param filename Name of the original file being handled by this object
 	**/
-	public ImageHandler(String filename) {
+	public ImageHandler(String filename, String filepath) {
 		this.handledFileName = filename;
+        this.handledFilePath = filepath;
 	}
 
 	/**
@@ -34,6 +33,14 @@ public abstract class ImageHandler {
 	**/
 	public final String getFileName() {
 		return this.handledFileName;
+	}
+
+	/**
+	*	Return the name of the original file being handled by this object 
+	*	@return filename Path of the original file being handled by this object
+	**/
+	public final String getFilePath() {
+		return this.handledFilePath;
 	}
 
 	/**

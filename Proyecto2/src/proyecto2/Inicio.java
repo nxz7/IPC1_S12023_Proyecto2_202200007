@@ -223,7 +223,8 @@ public class Inicio extends javax.swing.JFrame {
 
     
     private void editorGuiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editorGuiActionPerformed
-        
+        Editor pi = new Editor();
+        pi.setVisible(true);
     }//GEN-LAST:event_editorGuiActionPerformed
 
     /**
