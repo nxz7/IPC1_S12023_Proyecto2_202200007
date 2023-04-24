@@ -6,11 +6,13 @@ package proyecto2;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class Biblioteca extends javax.swing.JFrame {
 public File fichero;
 public ArrayList<String> Cat;
-
+private Imagenes imagenes;
 public String usuarioAc;
 
 
@@ -29,9 +31,25 @@ public String usuarioAc;
         initComponents();
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
                 model.addRow(new Object[]{categorias.Cat.get(0)});
-        
-         
+        try {
+            imagenes = (Imagenes) Imagenes.deserialize("C:\\\\Users\\\\natalia\\\\Documents\\\\rep\\\\IPC1_S12023_Proyecto2_202200007\\\\Proyecto2\\\\imagenes.ser");
+        } catch (Exception e) {
+            imagenes = new Imagenes();
+        }
+         /*Image image = imagenes.get(currentImageIndex).getImageIcon().getImage();
+        ImageIcon icono = new ImageIcon(image.getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
+        mostrarImagen.setIcon(icono);*/
+        if (imagenes != null && imagenes.getFirst() != null) {
+    ImageIcon icon = imagenes.getFirst().getImageIcon();
+    Image img = icon.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT);
+    icon = new ImageIcon(img);
+    mostrarImagen.setIcon(icon);
+}
+
     }
+    
+    
+     
     public String getUsuarioAc() {
         return usuarioAc;
     }
@@ -39,16 +57,8 @@ public String usuarioAc;
     public void setUsuarioAc(String usuarioAc) {
         this.usuarioAc = usuarioAc;
     }
-    /*public String[] getImagenes(){
+    /*
     
-    }
-    
-    public void mostar(int index){
-    String[] imagesList= getImages();
-    String imageName=images[index];
-    
-    ImageIcon icon = new ImageIcon(getClass().getResoruce
-    }
     */
 
     
@@ -71,7 +81,7 @@ public String usuarioAc;
         tabla = new javax.swing.JTable();
         mostrarImagen = new javax.swing.JLabel();
         seleccionar = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        next = new javax.swing.JButton();
         regresar = new javax.swing.JButton();
         ustexto = new javax.swing.JLabel();
 
@@ -130,13 +140,23 @@ public String usuarioAc;
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setForeground(new java.awt.Color(153, 0, 51));
-        jButton2.setText(">");
+        next.setBackground(new java.awt.Color(255, 255, 255));
+        next.setForeground(new java.awt.Color(153, 0, 51));
+        next.setText(">");
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
 
         regresar.setBackground(new java.awt.Color(255, 255, 255));
         regresar.setForeground(new java.awt.Color(204, 0, 51));
         regresar.setText("<");
+        regresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarActionPerformed(evt);
+            }
+        });
 
         ustexto.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -168,7 +188,7 @@ public String usuarioAc;
                                         .addComponent(regresar)
                                         .addGap(271, 271, 271)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2)
+                                    .addComponent(next)
                                     .addComponent(jButton1))))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -195,7 +215,7 @@ public String usuarioAc;
                         .addComponent(mostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(regresar))
                         .addGap(32, 32, 32)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -276,10 +296,39 @@ JFileChooser escojerImagen = new JFileChooser();
         Icon icono= new ImageIcon(imagen.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
         mostrarImagen.setIcon(icono);
 
+        //para ir actualizandolo 
+        Imagenes imagenes = null;
+        try {
+            imagenes = (Imagenes) Imagenes.deserialize("C:\\\\Users\\\\natalia\\\\Documents\\\\rep\\\\IPC1_S12023_Proyecto2_202200007\\\\Proyecto2\\\\imagenes.ser");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         
+        if (imagenes == null) {
+            imagenes = new Imagenes();
+        }
+
         
+        imagenes.add(imagen.getImage());
+
+        
+        imagenes.serialize("C:\\\\Users\\\\natalia\\\\Documents\\\\rep\\\\IPC1_S12023_Proyecto2_202200007\\\\Proyecto2\\\\imagenes.ser"); 
     }
     }//GEN-LAST:event_seleccionarActionPerformed
+private int currentImageIndex = 0;
+    private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
+        
+    }//GEN-LAST:event_regresarActionPerformed
+
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        if(imagenes != null && currentImageIndex< imagenes.getSize()){
+        currentImageIndex++;
+        Image image = imagenes.get(currentImageIndex+1).getImageIcon().getImage();
+        ImageIcon icono = new ImageIcon(image.getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
+        mostrarImagen.setIcon(icono);
+        }
+    }//GEN-LAST:event_nextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,10 +373,10 @@ JFileChooser escojerImagen = new JFileChooser();
     private javax.swing.JTextField categoriaGui;
     private javax.swing.JButton eliminar;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel mostrarImagen;
+    private javax.swing.JButton next;
     private javax.swing.JButton regresar;
     private javax.swing.JButton seleccionar;
     private javax.swing.JTable tabla;
