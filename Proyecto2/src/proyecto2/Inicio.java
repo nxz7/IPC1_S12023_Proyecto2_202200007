@@ -4,8 +4,7 @@
  */
 package proyecto2;
 
-import java.awt.event.TextEvent;
-import java.awt.event.TextListener;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;

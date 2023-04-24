@@ -6,6 +6,7 @@ package proyecto2;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -29,7 +30,7 @@ public String usuarioAc;
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
                 model.addRow(new Object[]{categorias.Cat.get(0)});
         
-        
+         
     }
     public String getUsuarioAc() {
         return usuarioAc;
@@ -265,15 +266,19 @@ public String usuarioAc;
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void seleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarActionPerformed
-        JFileChooser escojerImagen = new JFileChooser(); 
-        int eleccion = escojerImagen.showOpenDialog(this); 
-       ustexto.setText(usuarioAc);
-      if(eleccion ==JFileChooser.APPROVE_OPTION){
+JFileChooser escojerImagen = new JFileChooser(); 
+
+    int eleccion = escojerImagen.showOpenDialog(this); 
+    ustexto.setText(usuarioAc);
+    if(eleccion ==JFileChooser.APPROVE_OPTION){
         fichero=escojerImagen.getSelectedFile();
         ImageIcon imagen = new ImageIcon(fichero.getPath());
         Icon icono= new ImageIcon(imagen.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
         mostrarImagen.setIcon(icono);
-}
+
+        
+        
+    }
     }//GEN-LAST:event_seleccionarActionPerformed
 
     /**
