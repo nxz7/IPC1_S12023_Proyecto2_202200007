@@ -16,9 +16,9 @@ import javax.imageio.ImageIO;
 public class JPEGImageHandlerColors extends ImageHandler{
 
      //protected String prefijo;
-    protected String save_file;
-    protected String new_name;
-    protected String new_path;
+    protected String guardar;
+    protected String nuevoNombre;
+    protected String path;
     
     protected BufferedImage imagenR;
     protected BufferedImage imagenV;
@@ -29,8 +29,8 @@ public class JPEGImageHandlerColors extends ImageHandler{
         super(filename, filepath);
         int indiceInicial = super.getFileName().lastIndexOf("-") + 1;
         int indiceFinal = super.getFileName().lastIndexOf(".");
-        this.new_name = filename.substring(indiceInicial, indiceFinal);
-        this.save_file = "C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\temporal\\";
+        this.nuevoNombre = filename.substring(indiceInicial, indiceFinal);
+        this.guardar = "C:\\Users\\natalia\\Documents\\rep\\IPC1_S12023_Proyecto2_202200007\\Proyecto2\\temporal\\";
     }
 
     public void rojo(BufferedImage imagen) {
@@ -45,8 +45,8 @@ public class JPEGImageHandlerColors extends ImageHandler{
             }
         }
         try {
-            new_path = save_file + "red-" + new_name +".jpeg";
-            ImageIO.write(imagen, "JPEG", new File(new_path));
+            path = guardar + "red-" + nuevoNombre +".jpeg";
+            ImageIO.write(imagen, "JPEG", new File(path));
         } catch (IOException e) {
             System.err.println("ERROR: " + e.getMessage());
         }
@@ -64,8 +64,8 @@ public class JPEGImageHandlerColors extends ImageHandler{
             }
         }
         try {
-            new_path = save_file + "green-" + new_name + ".jpeg";
-            ImageIO.write(imagen, "JPEG", new File(new_path));
+            path = guardar + "green-" + nuevoNombre + ".jpeg";
+            ImageIO.write(imagen, "JPEG", new File(path));
         } catch (IOException e) {
             System.err.println("ERROR: " + e.getMessage());
         }
@@ -83,8 +83,8 @@ public class JPEGImageHandlerColors extends ImageHandler{
             }
         }
         try {
-            new_path = save_file + "blue-" + new_name + ".jpeg";
-            ImageIO.write(imagen, "JPEG", new File(new_path));
+            path = guardar + "blue-" + nuevoNombre + ".jpeg";
+            ImageIO.write(imagen, "JPEG", new File(path));
         } catch (IOException e) {
             System.err.println("ERROR: " + e.getMessage());
         }
@@ -128,8 +128,8 @@ public class JPEGImageHandlerColors extends ImageHandler{
     }
 
     try {
-        new_path = save_file + "sepia-" + new_name + ".jpeg";
-        ImageIO.write(imagen, "JPEG", new File(new_path));
+        path = guardar + "sepia-" + nuevoNombre + ".jpeg";
+        ImageIO.write(imagen, "JPEG", new File(path));
     } catch (IOException e) {
         System.err.println("ERROR: " + e.getMessage());
     }

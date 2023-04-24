@@ -44,6 +44,7 @@ public File fichero;
         RVAS = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         ByN = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -58,6 +59,8 @@ public File fichero;
             }
         });
 
+        JPEGaBMP.setBackground(new java.awt.Color(153, 153, 153));
+        JPEGaBMP.setForeground(new java.awt.Color(0, 0, 0));
         JPEGaBMP.setText("JPEG a BMP y visceversa");
         JPEGaBMP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +68,8 @@ public File fichero;
             }
         });
 
+        copiaJPEG.setBackground(new java.awt.Color(255, 204, 204));
+        copiaJPEG.setForeground(new java.awt.Color(0, 0, 0));
         copiaJPEG.setText("copia JPEG");
         copiaJPEG.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,6 +77,8 @@ public File fichero;
             }
         });
 
+        RVAS.setBackground(new java.awt.Color(51, 102, 255));
+        RVAS.setForeground(new java.awt.Color(255, 255, 255));
         RVAS.setText("rojo - verde - azul -sepia");
         RVAS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,28 +86,52 @@ public File fichero;
             }
         });
 
+        modificar.setBackground(new java.awt.Color(204, 204, 255));
+        modificar.setForeground(new java.awt.Color(0, 0, 0));
         modificar.setText("modificar");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
 
+        ByN.setBackground(new java.awt.Color(0, 0, 0));
+        ByN.setForeground(new java.awt.Color(255, 255, 255));
         ByN.setText("Blanco y Negro");
+        ByN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ByNActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(102, 102, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("regresar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(JPEGaBMP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(copiaJPEG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(RVAS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(ByN, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                        .addComponent(mostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addComponent(mostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(ElegirGui, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(31, 31, 31))
         );
@@ -108,23 +139,25 @@ public File fichero;
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(ElegirGui)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ElegirGui)
+                    .addComponent(jButton1))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(42, 42, 42)
                         .addComponent(JPEGaBMP)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(copiaJPEG)
                         .addGap(18, 18, 18)
                         .addComponent(RVAS)
                         .addGap(18, 18, 18)
                         .addComponent(modificar)
-                        .addGap(18, 18, 18)
+                        .addGap(12, 12, 12)
                         .addComponent(ByN))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(mostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(73, Short.MAX_VALUE))
+                        .addComponent(mostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -197,6 +230,34 @@ try {
         }   
     }//GEN-LAST:event_RVASActionPerformed
 
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        ImageHandler imagen = new JPEGImageHandlerRotator(fichero.getName(), fichero.getPath());
+
+        try {
+            JPEGHandler.runHandler(imagen);
+        } catch (Exception e) {
+            System.err.println("Error RGB: " + e.getMessage());
+        }   
+    
+    }//GEN-LAST:event_modificarActionPerformed
+
+    private void ByNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ByNActionPerformed
+
+               ImageHandler imagen = new JPEGImageHandlerBN(fichero.getName(), fichero.getPath());
+
+        try {
+            JPEGHandler.runHandler(imagen);
+        } catch (Exception e) {
+            System.err.println("Error RGB: " + e.getMessage());
+        }
+    }//GEN-LAST:event_ByNActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       dispose();
+       Inicio inicio = new Inicio();
+       inicio.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -238,6 +299,7 @@ try {
     private javax.swing.JButton JPEGaBMP;
     private javax.swing.JButton RVAS;
     private javax.swing.JButton copiaJPEG;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton modificar;
     private javax.swing.JLabel mostrarImagen;
