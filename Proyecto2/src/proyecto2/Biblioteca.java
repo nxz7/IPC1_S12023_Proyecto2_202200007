@@ -9,10 +9,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,29 +24,31 @@ import javax.swing.table.DefaultTableModel;
 public class Biblioteca extends javax.swing.JFrame {
 public File fichero;
 public ArrayList<String> Cat;
-private Imagenes imagenes;
+Imagenes imagenes = new Imagenes();
 public String usuarioAc;
+
 
 
 
     public Biblioteca() {
         initComponents();
+        
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
                 model.addRow(new Object[]{categorias.Cat.get(0)});
-        try {
+        /*try {
             imagenes = (Imagenes) Imagenes.deserialize("C:\\\\Users\\\\natalia\\\\Documents\\\\rep\\\\IPC1_S12023_Proyecto2_202200007\\\\Proyecto2\\\\imagenes.ser");
         } catch (Exception e) {
             imagenes = new Imagenes();
         }
-         /*Image image = imagenes.get(currentImageIndex).getImageIcon().getImage();
+         Image image = imagenes.get(currentImageIndex).getImageIcon().getImage();
         ImageIcon icono = new ImageIcon(image.getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
-        mostrarImagen.setIcon(icono);*/
+        mostrarImagen.setIcon(icono);
         if (imagenes != null && imagenes.getFirst() != null) {
     ImageIcon icon = imagenes.getFirst().getImageIcon();
     Image img = icon.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT);
     icon = new ImageIcon(img);
     mostrarImagen.setIcon(icon);
-}
+}*/
 
     }
     
@@ -84,6 +88,8 @@ public String usuarioAc;
         next = new javax.swing.JButton();
         regresar = new javax.swing.JButton();
         ustexto = new javax.swing.JLabel();
+        nombreIm = new javax.swing.JLabel();
+        eliminarImagen = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -160,6 +166,12 @@ public String usuarioAc;
 
         ustexto.setForeground(new java.awt.Color(0, 0, 0));
 
+        nombreIm.setForeground(new java.awt.Color(0, 0, 0));
+
+        eliminarImagen.setBackground(new java.awt.Color(255, 255, 255));
+        eliminarImagen.setForeground(new java.awt.Color(204, 0, 0));
+        eliminarImagen.setText("eliminar");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -167,56 +179,63 @@ public String usuarioAc;
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(categoriaGui, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(88, 88, 88)
+                        .addComponent(mostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(66, 66, 66))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
+                                .addComponent(agregarGui)
+                                .addGap(0, 400, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(categoriaGui, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                                .addGap(88, 88, 88)
-                                .addComponent(mostrarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(25, 25, 25)
-                                        .addComponent(agregarGui)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 418, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(regresar)
-                                        .addGap(271, 271, 271)))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(next)
-                                    .addComponent(jButton1))))
-                        .addContainerGap())
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(regresar)
+                                .addGap(46, 46, 46)
+                                .addComponent(seleccionar)
+                                .addGap(42, 42, 42)
+                                .addComponent(eliminarImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(next)
+                            .addComponent(jButton1)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(seleccionar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(ustexto, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(213, 213, 213))))
+                        .addGap(194, 194, 194)
+                        .addComponent(ustexto, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nombreIm, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(140, 140, 140))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seleccionar)
-                    .addComponent(ustexto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 27, Short.MAX_VALUE)
+                .addComponent(ustexto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(nombreIm, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                         .addGap(27, 27, 27)
                         .addComponent(categoriaGui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(mostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                        .addComponent(mostrarImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(next, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(regresar))
+                            .addComponent(regresar)
+                            .addComponent(eliminarImagen)
+                            .addComponent(seleccionar))
                         .addGap(32, 32, 32)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -245,6 +264,7 @@ public String usuarioAc;
        inicio.setVisible(true);
        System.out.println("1."+categorias.Cat.get(0));
        System.out.println("3."+categorias.Cat.get(2));
+       
     }//GEN-LAST:event_jButton1ActionPerformed
 
     String nuevaCat;
@@ -284,50 +304,51 @@ public String usuarioAc;
     model.removeRow(Linea);
 
     }//GEN-LAST:event_eliminarActionPerformed
+private int numeroI = 0;
 
     private void seleccionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seleccionarActionPerformed
-JFileChooser escojerImagen = new JFileChooser(); 
-
+ JFileChooser escojerImagen = new JFileChooser(); 
     int eleccion = escojerImagen.showOpenDialog(this); 
     ustexto.setText(usuarioAc);
-    if(eleccion ==JFileChooser.APPROVE_OPTION){
-        fichero=escojerImagen.getSelectedFile();
+    if(eleccion == JFileChooser.APPROVE_OPTION) {
+        fichero = escojerImagen.getSelectedFile();
         ImageIcon imagen = new ImageIcon(fichero.getPath());
-        Icon icono= new ImageIcon(imagen.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
+        Icon icono = new ImageIcon(imagen.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
         mostrarImagen.setIcon(icono);
+        nombreIm.setText(fichero.getName());
 
-        //para ir actualizandolo 
-        Imagenes imagenes = null;
+       
         try {
-            imagenes = (Imagenes) Imagenes.deserialize("C:\\\\Users\\\\natalia\\\\Documents\\\\rep\\\\IPC1_S12023_Proyecto2_202200007\\\\Proyecto2\\\\imagenes.ser");
-        } catch (Exception e) {
-            e.printStackTrace();
+            Image img = ImageIO.read(fichero);
+            imagenes.add(img);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-
-        
-        if (imagenes == null) {
-            imagenes = new Imagenes();
-        }
-
-        
-        imagenes.add(imagen.getImage());
-
-        
-        imagenes.serialize("C:\\\\Users\\\\natalia\\\\Documents\\\\rep\\\\IPC1_S12023_Proyecto2_202200007\\\\Proyecto2\\\\imagenes.ser"); 
     }
     }//GEN-LAST:event_seleccionarActionPerformed
-private int currentImageIndex = 0;
+
     private void regresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarActionPerformed
-        
+                Object imagen = imagenes.getAnterior();
+if(imagen != null) {
+    ImageIcon icon = new ImageIcon((Image) imagen);
+    Image image = icon.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT);
+    mostrarImagen.setIcon(new ImageIcon(image));
+    //nombreIm.setText(image.getNam)
+} else {
+    System.out.println("ESTA ES LA PRIMERA");
+}
     }//GEN-LAST:event_regresarActionPerformed
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        if(imagenes != null && currentImageIndex< imagenes.getSize()){
-        currentImageIndex++;
-        Image image = imagenes.get(currentImageIndex+1).getImageIcon().getImage();
-        ImageIcon icono = new ImageIcon(image.getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT));
-        mostrarImagen.setIcon(icono);
-        }
+        Object imagen = imagenes.getNext();
+if(imagen != null) {
+    ImageIcon icon = new ImageIcon((Image) imagen);
+    Image image = icon.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT);
+    mostrarImagen.setIcon(new ImageIcon(image));
+} else {
+    System.out.println("No hay mas");
+}
+
     }//GEN-LAST:event_nextActionPerformed
 
     /**
@@ -372,11 +393,13 @@ private int currentImageIndex = 0;
     private javax.swing.JButton agregarGui;
     private javax.swing.JTextField categoriaGui;
     private javax.swing.JButton eliminar;
+    private javax.swing.JButton eliminarImagen;
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel mostrarImagen;
     private javax.swing.JButton next;
+    private javax.swing.JLabel nombreIm;
     private javax.swing.JButton regresar;
     private javax.swing.JButton seleccionar;
     private javax.swing.JTable tabla;

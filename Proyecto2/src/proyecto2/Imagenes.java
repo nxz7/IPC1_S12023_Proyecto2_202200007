@@ -2,130 +2,144 @@
 package proyecto2;
 
 import java.awt.Image;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import javax.swing.ImageIcon;
+
 
 /**
  *
  * @author natalia
  */
-public class Imagenes extends EstructuraDeDatos implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    private Node inico;
-    private Node fin;
-    private int tam=1;
+public class Imagenes extends EstructuraDeDatos {
+    private NodoDoble inicio;
+    private NodoDoble current;
 
-    
     public Imagenes() {
-        inico = null;
-        fin = null;
+        this.inicio = null;
     }
-@Override
+
+    @Override
     public void add(Object e) {
-        
-        ImageIcon icon = (ImageIcon)e;
-        Node newNode = new Node(icon);
-
-        if (inico == null) {
-            inico = newNode;
-            fin = newNode;
+        if(inicio == null) {
+            inicio = new NodoDoble((Image)e);
+            index++;
+            Mensaje("SE AGREGO " + e + "<<<<");
         } else {
-            inico.siguinte = newNode;
-            newNode.prev = inico;
-           fin = newNode;
+            NodoDoble tmp = inicio;
+            for (int i = 0; i < this.index; i++) {
+                if(tmp != null){
+                    if(tmp.getValor() != (Image)e){
+                        if(tmp.getNext() == null) {
+                            tmp.setNext(new NodoDoble((Image)e, tmp));
+                            index++;
+                            Mensaje("SE AGREGO " + e + "<<<<");
+                        } else {
+                            tmp = tmp.getNext();
+                        }
+                    } else {
+                        Mensaje("Ya existe: " + e);
+                        break;
+                    }
+                }
+            }
         }
-        tam++;
-    }
-    
-
-    public void serialize(String fileName) {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-            oos.writeObject(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-public Node getFirst() {
-    return inico;
-}
-    public static Serializable deserialize(String fileName) {
-        Serializable list = null;
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
-            list = (Serializable) ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return list;
     }
 
-    
- public Node get(int i) {
-        if (i < 0 || i >= tam) {
-            return null;
-        }
-        Node current = inico;
-        for (int j = 0; j < i; j++) {
-            current = current.siguinte;
-        }
-        return current;
-    }
     @Override
     public Object peek() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
 
     @Override
     public Object find(Object e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public Object getNext() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(current == null) {
+            current = inicio;
+            return current.getValor();
+        } else if(current.getNext() != null) {
+            current = current.getNext();
+            return current.getValor();
+        } else {
+            return null;
+        }
     }
-
-    @Override
-    public int getSize() {
-        return tam;
-    }
-
+    
     
 
     @Override
+    public int getSize() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public Object get(int i) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
     public Object pop() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
     public void delete(Object e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(!vacia()) {
+            boolean eliminado = false;
+            NodoDoble tmp = inicio;
+
+            for (int i = 0; i < this.index; i++) {
+                if(tmp.getValor() == (Image)e){
+                    tmp.getBack().setNext(tmp.getNext());
+                    tmp.getNext().setBack(tmp.getBack());
+                    Mensaje("Se elimino: " + e);
+                    index--;
+                    eliminado = true;
+                    break;
+                                } else {
+                tmp = tmp.getNext();
+            }
+        }
+        if(!eliminado) {
+            Mensaje("NO EXISTE " + e );
+        }
+    } else {
+        Mensaje("LISTA VACIA " );
     }
+}
 
-    public static class Node implements Serializable {
+     public boolean vacia() {
+     return inicio == null;
+}
 
-        private static final long serialVersionUID = 1L;
-        private ImageIcon data;
-        private Node prev;
-        private Node siguinte;
-
-        public Node(ImageIcon data) {
-            this.data = data;
-            prev = null;
-            siguinte = null;
+    public void imprimir() {
+    if(!vacia()) {
+        NodoDoble tmp = inicio;
+        while(tmp != null) {
+            System.out.print(tmp.getValor() + " <--> ");
+            tmp = tmp.getNext();
         }
-
-        public ImageIcon getImageIcon() {
-            return data;
+    } else {
+        System.out.println("La lista esta vacia.");
+    }
+}
+    public Object getAnterior() {
+        if(current == null) {
+            current = inicio;
+            return current.getValor();
+        } else if(current.getBack() != null) {
+            current = current.getBack();
+            return current.getValor();
+        } else {
+            return null;
         }
-        
     }
     
+    
+
+public void Mensaje(String msg){
+    System.out.println(msg);
+}
 }
