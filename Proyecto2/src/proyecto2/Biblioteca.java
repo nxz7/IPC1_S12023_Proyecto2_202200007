@@ -6,15 +6,14 @@ package proyecto2;
 
 import java.awt.Image;
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
