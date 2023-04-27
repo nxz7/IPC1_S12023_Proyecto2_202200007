@@ -170,6 +170,11 @@ public String usuarioAc;
         eliminarImagen.setBackground(new java.awt.Color(255, 255, 255));
         eliminarImagen.setForeground(new java.awt.Color(204, 0, 0));
         eliminarImagen.setText("eliminar");
+        eliminarImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarImagenActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -349,6 +354,21 @@ if(imagen != null) {
 }
 
     }//GEN-LAST:event_nextActionPerformed
+
+    private void eliminarImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarImagenActionPerformed
+        
+        imagenes.EliminarCurrent();
+    Object imagen = imagenes.getNext();
+    if(imagen != null) {
+        ImageIcon icon = new ImageIcon((Image) imagen);
+        Image image = icon.getImage().getScaledInstance(mostrarImagen.getWidth(), mostrarImagen.getHeight(), Image.SCALE_DEFAULT);
+        mostrarImagen.setIcon(new ImageIcon(image));
+    } else {
+        mostrarImagen.setIcon(null);
+        System.out.println("No hay mas");
+    }
+        
+    }//GEN-LAST:event_eliminarImagenActionPerformed
 
     /**
      * @param args the command line arguments

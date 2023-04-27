@@ -137,6 +137,28 @@ public class Imagenes extends EstructuraDeDatos {
         }
     }
     
+    public void EliminarCurrent() {
+        if (!vacia() && current != null) {
+        NodoDoble tmp = current;
+        current = current.getBack();
+
+        if (current != null) {
+            current.setNext(tmp.getNext());
+        } else {
+            inicio = tmp.getNext();
+        }
+
+        if (tmp.getNext() != null) {
+            tmp.getNext().setBack(current);
+        }
+
+        index--;
+        Mensaje("Se elimino la imagen actual");
+    } else {
+        Mensaje("No se pudo eliminar la imagen actual");
+    }
+    }
+    
     
 
 public void Mensaje(String msg){
